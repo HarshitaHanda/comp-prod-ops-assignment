@@ -1,0 +1,7 @@
+beautifulsoup4>=4.12.3
+composio>=0.17.1
+openai>=1.100.0
+playwright>=1.55.0
+pydantic>=2.8.2
+python-dotenv>=1.0.1
+requests>=2.32.3

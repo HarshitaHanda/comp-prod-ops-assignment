@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Composio AI Product Ops take-home: 100-app API buildability research, agent workflow, and verification." />
+  <title>100 Apps -> Agent Tools | Product Ops Case Study</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <div class="noise"></div>
+  <header class="topbar">
+    <a class="brand" href="#top"><span class="brand-mark">C</span><span>Product Ops Research</span></a>
+    <nav>
+      <a href="#findings">Findings</a>
+      <a href="#agent">Agent</a>
+      <a href="#verification">Verification</a>
+      <a href="#matrix">100 apps</a>
+    </nav>
+    <a class="repo-link" href="https://github.com/HarshitaHanda/comp-prod-ops-assignment" target="_blank" rel="noreferrer">Source ^</a>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="eyebrow">AI Product Ops - Take-home case study</div>
+      <h1>Which of 100 requested apps can become <span>agent tools today?</span></h1>
+      <p class="hero-copy">
+        I built a source-first research agent to inspect auth, developer access, API surface,
+        MCP availability and integration blockers-then challenged its own answers with a
+        browser-rendered verification pass and human checks.
+      </p>
+      <div class="hero-actions">
+        <a class="button primary" href="#findings">See the findings</a>
+        <a class="button secondary" href="#agent">How the agent works</a>
+      </div>
+      <div class="progress-shell">
+        <div class="progress-copy"><span id="progressText">Loading research...</span><span id="progressPct">-</span></div>
+        <div class="progress-track"><div id="progressBar" class="progress-bar"></div></div>
+      </div>
+    </section>
+
+    <section id="findings" class="section">
+      <div class="section-kicker">01 - Findings</div>
+      <div class="section-head">
+        <h2>The headline, before the spreadsheet.</h2>
+        <p>Counts below are generated from the evidence-backed dataset, not hard-coded into the page.</p>
+      </div>
+
+      <div class="metrics">
+        <article class="metric">
+          <span class="metric-label">Researched</span>
+          <strong id="metricResearched">-</strong>
+          <small>of 100 apps</small>
+        </article>
+        <article class="metric">
+          <span class="metric-label">Buildable now</span>
+          <strong id="metricBuildable">-</strong>
+          <small>documented auth + API path</small>
+        </article>
+        <article class="metric">
+          <span class="metric-label">Gated</span>
+          <strong id="metricGated">-</strong>
+          <small>admin / partner / sales gate</small>
+        </article>
+        <article class="metric accent">
+          <span class="metric-label">Composio match</span>
+          <strong id="metricComposio">-</strong>
+          <small>toolkit found in catalog</small>
+        </article>
+      </div>
+
+      <div class="split-grid">
+        <article class="panel">
+          <div class="panel-title">Auth patterns</div>
+          <div id="authBars" class="bar-list empty-state">Run the research agent to populate this chart.</div>
+        </article>
+        <article class="panel">
+          <div class="panel-title">Access patterns</div>
+          <div id="accessBars" class="bar-list empty-state">Run the research agent to populate this chart.</div>
+        </article>
+      </div>
+
+      <article class="panel wide-panel">
+        <div class="panel-topline">
+          <div>
+            <div class="panel-title">What the pattern says</div>
+            <p class="panel-subtitle">Generated directly from the final structured dataset.</p>
+          </div>
+          <span class="badge" id="insightBadge">Awaiting data</span>
+        </div>
+        <div id="patternCards" class="pattern-grid">
+          <div class="pattern-card muted"><span>01</span><p>Patterns appear here after the pipeline has researched enough apps to make the counts meaningful.</p></div>
+        </div>
+      </article>
+    </section>
+
+    <section id="agent" class="section dark-section">
+      <div class="section-kicker">02 - The agent</div>
+      <div class="section-head">
+        <h2>One pipeline. Three deliberately different passes.</h2>
+        <p>The first pass is fast. The second pass is skeptical. The final pass is human.</p>
+      </div>
+
+      <div class="pipeline">
+        <article class="stage">
+          <div class="stage-num">01</div>
+          <h3>Source-first research</h3>
+          <p>Starts from the official URL supplied in the brief, crawls likely API/auth/docs links on the same official domain, and extracts a structured finding.</p>
+          <ul>
+            <li>Auth method(s)</li>
+            <li>Self-serve vs gated</li>
+            <li>REST / GraphQL / MCP</li>
+            <li>Buildability + blocker</li>
+            <li>Evidence URLs + confidence</li>
+          </ul>
+        </article>
+        <div class="connector">-></div>
+        <article class="stage">
+          <div class="stage-num">02</div>
+          <h3>Composio enrichment</h3>
+          <p>The official Composio Python SDK loads the live toolkit catalog and records whether the app already has a matching Composio integration.</p>
+          <div class="code-chip">composio.toolkits.list()</div>
+        </article>
+        <div class="connector">-></div>
+        <article class="stage">
+          <div class="stage-num">03</div>
+          <h3>Independent verification</h3>
+          <p>A separate Chromium/Playwright pass re-renders sampled evidence pages and checks the first-pass claims field by field.</p>
+          <ul>
+            <li>Different retrieval path</li>
+            <li>Corrections logged</li>
+            <li>Human sample supported</li>
+          </ul>
+        </article>
+      </div>
+
+      <div class="honesty-callout">
+        <span class="honesty-icon">!</span>
+        <div>
+          <strong>Where a human is still needed</strong>
+          <p>Pricing gates, partner-only access, ambiguous product naming and docs that require an authenticated account can defeat automated retrieval. Those rows are flagged instead of guessed.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="verification" class="section">
+      <div class="section-kicker">03 - Verification</div>
+      <div class="section-head">
+        <h2>Accuracy is treated as a result, not an assumption.</h2>
+        <p>The verification section stays blank until checks actually exist; no synthetic accuracy number is shown.</p>
+      </div>
+
+      <div class="verification-grid">
+        <article class="verify-card">
+          <span>Sample checked</span>
+          <strong id="verifySample">-</strong>
+          <small>apps</small>
+        </article>
+        <article class="verify-card">
+          <span>First pass</span>
+          <strong id="verifyBefore">-</strong>
+          <small>field-level accuracy</small>
+        </article>
+        <article class="verify-card accent-soft">
+          <span>After verification</span>
+          <strong id="verifyAfter">-</strong>
+          <small>field-level accuracy</small>
+        </article>
+        <article class="verify-card">
+          <span>Corrections logged</span>
+          <strong id="verifyCorrections">-</strong>
+          <small>claims changed</small>
+        </article>
+      </div>
+
+      <div class="panel corrections-panel">
+        <div class="panel-title">Hits, misses, and corrections</div>
+        <div id="correctionsList" class="correction-list empty-state">
+          Verification output will appear here after the browser pass runs.
+        </div>
+      </div>
+    </section>
+
+    <section id="matrix" class="section matrix-section">
+      <div class="section-kicker">04 - 100-app matrix</div>
+      <div class="section-head">
+        <h2>Every answer should be traceable.</h2>
+        <p>Filter the final set and open the exact evidence used for each row.</p>
+      </div>
+
+      <div class="toolbar">
+        <label class="search-box">
+          <span>/</span>
+          <input id="searchInput" type="search" placeholder="Search app, auth, blocker..." />
+        </label>
+        <select id="categoryFilter"><option value="">All categories</option></select>
+        <select id="buildFilter">
+          <option value="">Any buildability</option>
+          <option value="yes">Buildable</option>
+          <option value="partial">Partial</option>
+          <option value="no">Not buildable</option>
+          <option value="unknown">Unknown</option>
+        </select>
+        <span id="rowCount" class="row-count">100 apps</span>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>App</th>
+              <th>Auth</th>
+              <th>Access</th>
+              <th>API / MCP</th>
+              <th>Verdict</th>
+              <th>Blocker</th>
+              <th>Evidence</th>
+            </tr>
+          </thead>
+          <tbody id="resultsBody"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div>
+      <strong>Harshita Handa</strong>
+      <span>AI Product Ops - Composio take-home</span>
+    </div>
+    <p>Built as a reproducible research system, not a manually filled spreadsheet.</p>
+  </footer>
+
+  <script src="/app.js" defer></script>
+</body>
+</html>
